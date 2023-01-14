@@ -30,17 +30,19 @@ export default function LoginForm() {
     setPassword(value);
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setErrorMessage(null);
     setIsLoading(true);
 
-    login({ email: email, password: password })
-    .then(() => {
+    try{
+      await login({ email: email, password: password});
       alert('Login efetuado com sucesso!');
-    })
-    .catch((error) => {
+      setIsLoading(false)
+    }
+    catch(error){
       setErrorMessage(error.message);
-    }).finally(() => setIsLoading(false));
+      setIsLoading(false)
+    }
   }
 
   return (
